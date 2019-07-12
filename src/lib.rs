@@ -1,6 +1,7 @@
 //! libsamplerate is a C2Rust-transpiled version of the original libsamplerate. Therefore, it's a
 //! pure (albeit not necessarily memory-safe) Rust version of the library. No dealing with build
 //! hassles, no dealing with C.
+//!
 //! The interface is nearly identical to `libsamplerate-rust`, and should be a drop-in replacement.
 
 #![allow(dead_code)]

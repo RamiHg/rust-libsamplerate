@@ -5,11 +5,13 @@ version = "0.1.0"
 edition = "2018"
 
 description = "A pure C2Rust transpiled version of libsamplerate."
+repository = "https://github.com/RamiHg/rust-libsamplerate"
 readme = "README.md"
 keywords = ["libsamplerate", "audio", "resampling", "samplerate"]
 categories = ["game-engines", "multimedia::audio"]
 license = "BSD-2-Clause AND MIT"
 
+[badges]
 maintenance = { status = "actively-developed" }
 
 [dependencies]
