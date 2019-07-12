@@ -1,0 +1,16 @@
+[package]
+name = "libsamplerate"
+authors = ["Ramy <RamiHg@users.noreply.github.com>"]
+version = "0.1.0"
+edition = "2018"
+
+description = "A pure C2Rust transpiled version of libsamplerate."
+readme = "README.md"
+keywords = ["libsamplerate", "audio", "resampling", "samplerate"]
+categories = ["game-engines", "multimedia::audio"]
+license = "BSD-2-Clause AND MIT"
+
+maintenance = { status = "actively-developed" }
+
+[dependencies]
+libc = "0.2"
