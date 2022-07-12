@@ -236,7 +236,7 @@ unsafe extern "C" fn linear_vari_process(
     if 0 != (*priv_0).reset {
         ch = 0i32;
         while ch < (*priv_0).channels {
-            (*priv_0).last_value[ch as usize] = *(*data).data_in.offset(ch as isize);
+            *(*priv_0).last_value.get_unchecked_mut(ch as usize) = *(*data).data_in.offset(ch as isize);
             ch += 1
         }
         (*priv_0).reset = 0i32
@@ -267,9 +267,9 @@ unsafe extern "C" fn linear_vari_process(
         ch = 0i32;
         while ch < (*priv_0).channels {
             *(*data).data_out.offset((*priv_0).out_gen as isize) =
-                ((*priv_0).last_value[ch as usize] as libc::c_double
+                (*(*priv_0).last_value.get_unchecked(ch as usize) as libc::c_double
                     + input_index
-                        * (*(*data).data_in.offset(ch as isize) - (*priv_0).last_value[ch as usize])
+                        * (*(*data).data_in.offset(ch as isize) - *(*priv_0).last_value.get_unchecked(ch as usize))
                             as libc::c_double) as libc::c_float;
             (*priv_0).out_gen += 1;
             ch += 1
@@ -328,7 +328,7 @@ unsafe extern "C" fn linear_vari_process(
     if (*priv_0).in_used > 0i32 as libc::c_long {
         ch = 0i32;
         while ch < (*priv_0).channels {
-            (*priv_0).last_value[ch as usize] = *(*data).data_in.offset(
+            *(*priv_0).last_value.get_unchecked_mut(ch as usize) = *(*data).data_in.offset(
                 ((*priv_0).in_used - (*priv_0).channels as libc::c_long + ch as libc::c_long)
                     as isize,
             );
