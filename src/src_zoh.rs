@@ -1,18 +1,12 @@
 use libc;
 extern "C" {
-    #[no_mangle]
     fn calloc(_: libc::c_ulong, _: libc::c_ulong) -> *mut libc::c_void;
-    #[no_mangle]
     fn free(_: *mut libc::c_void);
-    #[no_mangle]
     fn memcpy(_: *mut libc::c_void, _: *const libc::c_void, _: libc::c_ulong)
      -> *mut libc::c_void;
-    #[no_mangle]
     fn memset(_: *mut libc::c_void, _: libc::c_int, _: libc::c_ulong)
      -> *mut libc::c_void;
-    #[no_mangle]
     fn fabs(_: libc::c_double) -> libc::c_double;
-    #[no_mangle]
     fn lrint(_: libc::c_double) -> libc::c_long;
 }
 pub type __darwin_size_t = libc::c_ulong;
@@ -227,7 +221,7 @@ unsafe extern "C" fn zoh_vari_process(mut psrc: *mut SRC_PRIVATE,
     if 0 != (*priv_0).reset {
         ch = 0i32;
         while ch < (*priv_0).channels {
-            (*priv_0).last_value[ch as usize] =
+            *(*priv_0).last_value.get_unchecked_mut(ch as usize) =
                 *(*data).data_in.offset(ch as isize);
             ch += 1
         }
@@ -261,7 +255,7 @@ unsafe extern "C" fn zoh_vari_process(mut psrc: *mut SRC_PRIVATE,
         ch = 0i32;
         while ch < (*priv_0).channels {
             *(*data).data_out.offset((*priv_0).out_gen as isize) =
-                (*priv_0).last_value[ch as usize];
+                *(*priv_0).last_value.get_unchecked(ch as usize);
             (*priv_0).out_gen += 1;
             ch += 1
         }
@@ -309,7 +303,7 @@ unsafe extern "C" fn zoh_vari_process(mut psrc: *mut SRC_PRIVATE,
     if (*priv_0).in_used > 0i32 as libc::c_long {
         ch = 0i32;
         while ch < (*priv_0).channels {
-            (*priv_0).last_value[ch as usize] =
+            *(*priv_0).last_value.get_unchecked_mut(ch as usize) =
                 *(*data).data_in.offset(((*priv_0).in_used -
                                              (*priv_0).channels as
                                                  libc::c_long +
